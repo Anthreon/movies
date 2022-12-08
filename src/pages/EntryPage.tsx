@@ -95,6 +95,9 @@ const EntryPage: FC = () => {
 
   return (
     <div>
+      <Link className={Styles.favouritePageLink} to="favourites">
+        My Favourites
+      </Link>
       <header className={Styles.header}>
         <SearchInput></SearchInput>
       </header>
@@ -125,8 +128,6 @@ const EntryPage: FC = () => {
           <p>error state</p>
         )}
       </main>
-
-      {/* <Link to="favourites">Navigate to favourites</Link> */}
 
       {/* {status}
       {totalMoviesResults} */}
