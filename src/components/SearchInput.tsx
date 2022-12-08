@@ -1,22 +1,24 @@
-import { FC, useState } from "react";
+import { FC, useContext, useState } from "react";
+import { SearchContext } from "../store/search-context";
 import Styles from "./SearchInput.module.css";
 
 const SearchInput: FC = () => {
-  const [movieInput, setMovieInput] = useState<string>("");
+  const searchCtx = useContext(SearchContext);
 
   const inputHandler = (e: React.FormEvent<HTMLInputElement>) => {
     const newValue: string = e.currentTarget.value;
-    setMovieInput(newValue);
+    searchCtx.changeSearchInputHandler(newValue);
   };
 
   return (
     <div>
       <input
-        value={movieInput}
+        value={searchCtx.searchedInput}
         onChange={inputHandler}
         className={Styles.searchInput}
         placeholder="Search movie"
       ></input>
+      <p>{searchCtx.searchedInput}</p>
     </div>
   );
 };
