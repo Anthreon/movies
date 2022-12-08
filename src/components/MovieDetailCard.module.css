@@ -1,14 +1,39 @@
 .cardContainer {
+  display: flex;
+  flex-direction: column;
+  max-width: 300px;
+  border-radius: 16px;
+  border: solid 1px;
+  text-align: center;
+  background-color: rgb(242, 223, 193);
+  color: black;
+}
+
+.cardTextContainer {
+  flex: 1;
+}
+
+.cardContainer:hover {
+  cursor: pointer;
+  opacity: 0.9;
 }
 
 .cardImage {
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  height: auto;
+  max-width: 100%;
+  min-width: 150px;
 }
 
 .cardTitle {
+  font-size: 18px;
 }
 
 .cardYear {
+  font-size: 14px;
 }
 
 .cardType {
+  font-size: 12px;
 }

@@ -6,6 +6,7 @@ import { useQuery } from "react-query";
 import axios from "axios";
 import { SearchContext } from "../store/search-context";
 import useDebounce from "../customHooks/useDebounce";
+import MovieDetailCard from "../components/MovieDetailCard";
 
 const API_URL = "http://omdbapi.com/?apikey=aa5c3014&r=json&type=movie";
 
@@ -73,8 +74,17 @@ const EntryPage: FC = () => {
 
       <main className={Styles.moviesContainer}>
         {!isLoading && !isError ? (
-          data?.map((movie: any, index: number) => {
-            return <li key={index}>{movie.title}</li>;
+          data?.map((movie: MovieDetail, index: number) => {
+            return (
+              <MovieDetailCard
+                id={movie.id}
+                image={movie.image}
+                title={movie.title}
+                year={movie.year}
+                type={movie.type}
+                key={index}
+              />
+            );
           })
         ) : (
           <p>error state</p>

@@ -1,5 +1,5 @@
 import { FC, SVGProps } from "react";
-import Styles from "./MovieDetail.module.css";
+import Styles from "./MovieDetailCard.module.css";
 
 interface MovieDetail {
   image: string;
@@ -19,11 +19,13 @@ const MovieDetailCard: FC<MovieDetail> = ({
   return (
     <div className={Styles.cardContainer} id={id}>
       <div>
-        <img className={Styles.cardImage} src={image}></img>
+        <img alt="Movie" className={Styles.cardImage} src={image}></img>
       </div>
-      <h2 className={Styles.cardTitle}>{title} </h2>
-      <h4 className={Styles.cardYear}>{year}</h4>
-      <h5 className={Styles.cardType}>{type}</h5>
+      <div className={Styles.cardTextContainer}>
+        <h2 className={Styles.cardTitle}>{title} </h2>
+        <h4 className={Styles.cardYear}>{year}</h4>
+        <h5 className={Styles.cardType}>{type}</h5>
+      </div>
     </div>
   );
 };
