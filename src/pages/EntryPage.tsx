@@ -11,7 +11,7 @@ import { Pagination } from "@mui/material";
 
 const API_URL = "http://omdbapi.com/?apikey=aa5c3014&r=json&type=movie";
 
-interface MovieDetail {
+export interface MovieDetail {
   image: string;
   title: string;
   type: string;
