@@ -16,7 +16,7 @@ const SearchInput: FC = () => {
         value={searchCtx.searchedInput}
         onChange={inputHandler}
         className={Styles.searchInput}
-        placeholder="Search movie"
+        placeholder="Search movie (type at least 3 chars)"
       ></input>
       <p>{searchCtx.searchedInput}</p>
     </div>

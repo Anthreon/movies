@@ -4,3 +4,12 @@
   background-color: blanchedalmond;
   line-height: 150px;
 }
+
+.moviesContainer {
+  width: 100%;
+  padding: 8px;
+  margin-top: 20px;
+  display: grid;
+  border: solid 1px;
+  background-color: darkkhaki;
+}

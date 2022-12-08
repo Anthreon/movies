@@ -1,10 +1,12 @@
-import { FC, useContext, useEffect } from "react";
+import { FC, useContext, useEffect, useState } from "react";
 import SearchInput from "../components/SearchInput";
 import Styles from "./EntryPage.module.css";
 import { Link } from "react-router-dom";
 import { useQuery } from "react-query";
 import axios from "axios";
 import { SearchContext } from "../store/search-context";
+import useDebounce from "../customHooks/useDebounce";
+
 const API_URL = "http://omdbapi.com/?apikey=aa5c3014&r=json&type=movie";
 
 interface MovieDetail {
@@ -18,24 +20,31 @@ interface MovieDetail {
 const EntryPage: FC = () => {
   const searchCtx = useContext(SearchContext);
   const validString: boolean = searchCtx.searchedInput.length > 2;
-  console.log(validString);
+  const debouncedSearchTerm = useDebounce(searchCtx.searchedInput, 500);
+  const [totalMoviesResults, setTotalMoviesResults] = useState<number>(0);
 
   const {
     data,
     isLoading,
     isError,
-  }: { data: MovieDetail[] | undefined; isLoading: boolean; isError: boolean } =
-    useQuery(
-      ["movies", searchCtx.searchedInput],
-      fetchMovies.bind(this, `&s=${searchCtx.searchedInput}`),
-      {
-        enabled: validString,
-      }
-    );
+    status,
+  }: {
+    data: MovieDetail[] | undefined;
+    isLoading: boolean;
+    isError: boolean;
+    status: string;
+  } = useQuery(
+    ["movies", debouncedSearchTerm],
+    fetchMovies.bind(this, `&s=${debouncedSearchTerm}&page=${1}`),
+    {
+      enabled: validString,
+    }
+  );
 
   async function fetchMovies(searchMovieInput: string): Promise<MovieDetail[]> {
     const { data } = await axios.get(`${API_URL + searchMovieInput}`);
-
+    console.log(data);
+    setTotalMoviesResults(data.totalResults);
     const mappedMovies: MovieDetail[] = data.Search.map((movie: any) => {
       return {
         image: movie.Poster,
@@ -61,12 +70,21 @@ const EntryPage: FC = () => {
       <header className={Styles.header}>
         <SearchInput></SearchInput>
       </header>
-      <Link to="favourites">Navigate to favourites</Link>
-      {!isLoading && !isError
-        ? data?.map((movie: any, index: number) => {
+
+      <main className={Styles.moviesContainer}>
+        {!isLoading && !isError ? (
+          data?.map((movie: any, index: number) => {
             return <li key={index}>{movie.title}</li>;
           })
-        : null}
+        ) : (
+          <p>error state</p>
+        )}
+      </main>
+
+      {/* <Link to="favourites">Navigate to favourites</Link> */}
+
+      {/* {status}
+      {totalMoviesResults} */}
     </div>
   );
 };
