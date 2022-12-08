@@ -6,7 +6,6 @@
 }
 
 .moviesContainer {
-  margin-top: 40px;
   padding-top: 40px;
   padding-bottom: 40px;
   display: grid;
@@ -14,6 +13,12 @@
   grid-template-rows: auto;
   gap: 64px;
   justify-items: center;
-  border: solid 1px;
   background-color: darkkhaki;
+}
+
+.paginationContainer {
+  background-color: rgb(230, 157, 133);
+  justify-content: center;
+  display: flex;
+  padding: 8px 0;
 }
