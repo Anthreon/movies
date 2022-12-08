@@ -1,8 +1,9 @@
 import React from "react";
 import "./App.css";
+import MainRoutes from "./routing/MainRoutes";
 
 function App() {
-  return <div className="App">adsa</div>;
+  return <MainRoutes></MainRoutes>;
 }
 
 export default App;

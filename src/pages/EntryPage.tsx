@@ -1,8 +1,13 @@
 import { FC } from "react";
+import SearchInput from "../components/SearchInput";
 import Styles from "./EntryPage.module.css";
 
 const EntryPage: FC = () => {
-  return <p>Entry page</p>;
+  return (
+    <header className={Styles.header}>
+      <SearchInput></SearchInput>
+    </header>
+  );
 };
 
 export default EntryPage;
