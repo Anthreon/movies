@@ -50,6 +50,9 @@ const EntryPage: FC = () => {
     searchMovieInput: string,
     pageNumber: number
   ): Promise<MovieDetail[]> {
+    if (searchMovieInput !== debouncedSearchTerm) {
+      resetPagination();
+    }
     const { data } = await axios.get(
       `${API_URL}&s=${debouncedSearchTerm}&page=${pageNumber}`
     );
@@ -72,7 +75,7 @@ const EntryPage: FC = () => {
   }
 
   const resetPagination = (): void => {
-    setPage(0);
+    setPage(1);
   };
 
   const handlePageChange = async (
