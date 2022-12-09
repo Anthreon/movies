@@ -11,6 +11,7 @@ import { Pagination } from "@mui/material";
 import { FavouriteMoviesContext } from "../store/favourite-movies-context";
 import EmptySearch from "../components/EmptySearch";
 import BackDropSpinner from "../components/BackDropSpinner";
+import NoResultsFound from "../components/NoResultsFound";
 
 const API_URL = "http://omdbapi.com/?apikey=aa5c3014&r=json&type=movie";
 
@@ -108,13 +109,13 @@ const EntryPage: FC = () => {
       ) : null}
 
       <Link className={Styles.favouritePageLink} to="favourites">
-        My Favourites
+        My Favourites {}
       </Link>
       <header className={Styles.header}>
         <SearchInput></SearchInput>
       </header>
 
-      {validString ? (
+      {validString && status !== "error" ? (
         <div>
           <div className={Styles.paginationContainer}>
             <Pagination
@@ -141,8 +142,10 @@ const EntryPage: FC = () => {
             })}
           </main>
         </div>
-      ) : (
+      ) : status !== "error" || !validString ? (
         <EmptySearch></EmptySearch>
+      ) : (
+        <NoResultsFound></NoResultsFound>
       )}
     </div>
   );
