@@ -64,8 +64,6 @@ const EntryPage: FC = () => {
     const { data } = await axios.get(
       `${API_URL}&s=${debouncedSearchTerm}&page=${pageNumber}`
     );
-    // console.log(`${API_URL}&s=${searchMovieInput}&page=${pageNumber}`);
-    // console.log(data);
     setTotalMoviesResults(data.totalResults);
     setTotalNumberOfPages(Math.floor(data.totalResults / 10));
     const mappedMovies: MovieDetail[] = data.Search.map((movie: any) => {
