@@ -1,0 +1,28 @@
+.movieDetails {
+  display: flex;
+  padding: 48px;
+  font-size: 24px;
+}
+
+.imgWrapper {
+  padding: 24px;
+}
+
+.img {
+  float: left;
+  max-width: 100%;
+  width: 500px;
+}
+
+.movieDataList {
+  padding: 16px;
+  border-top-right-radius: 8px;
+  border-bottom-left-radius: 8px;
+  background-color: bisque;
+  list-style: none;
+}
+
+.movieDataList li {
+  padding: 8px;
+  font-weight: bold;
+}
