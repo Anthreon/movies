@@ -1,4 +1,4 @@
-import { FC, SVGProps, useContext } from "react";
+import { FC, SVGProps, useContext, useState, useEffect } from "react";
 import Styles from "./MovieDetailCard.module.css";
 import MoviePlaceholder from "../assets/MoviePlaceholder.jpg";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
@@ -11,17 +11,16 @@ const MovieDetailCard: FC<MovieDetail> = (props: MovieDetail) => {
 
   const addMovie = () => {
     favouriteMoviesCtx.addFavouriteMovie(props);
-    console.log(favouriteMoviesCtx);
-  };
-  const removeMovie = (id: string) => {
-    favouriteMoviesCtx.removeFavouriteMovie(id);
-    console.log(favouriteMoviesCtx);
   };
 
   return (
     <div className={Styles.cardContainer} id={props.id}>
       <div onClick={addMovie} className={Styles.starWrapper}>
-        <StarBorderIcon fontSize="large"></StarBorderIcon>
+        {props.addedToFavourites ? (
+          <StarRateIcon fontSize="large"></StarRateIcon>
+        ) : (
+          <StarBorderIcon fontSize="large"></StarBorderIcon>
+        )}
       </div>
       <div>
         <img

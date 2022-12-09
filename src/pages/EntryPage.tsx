@@ -18,6 +18,7 @@ export interface MovieDetail {
   type: string;
   year: string;
   id: string;
+  addedToFavourites: boolean;
 }
 
 const EntryPage: FC = () => {
@@ -27,7 +28,6 @@ const EntryPage: FC = () => {
   const debouncedSearchTerm = useDebounce(searchCtx.searchedInput, 500);
   const [totalMoviesResults, setTotalMoviesResults] = useState<number>(0);
   const [totalNumberOfPages, setTotalNumberOfPages] = useState<number>(0);
-  const [page, setPage] = useState<number>(1);
   const [fetchedMovies, setFetchedMovies] = useState<MovieDetail[]>([]);
 
   const {
@@ -42,7 +42,11 @@ const EntryPage: FC = () => {
     status: string;
   } = useQuery(
     ["movies", debouncedSearchTerm],
-    fetchMovies.bind(fetchMovies, `&s=${debouncedSearchTerm}`, page),
+    fetchMovies.bind(
+      fetchMovies,
+      `&s=${debouncedSearchTerm}`,
+      searchCtx.pagination
+    ),
     {
       enabled: validString,
     }
@@ -52,48 +56,46 @@ const EntryPage: FC = () => {
     searchMovieInput: string,
     pageNumber: number
   ): Promise<MovieDetail[]> {
-    if (searchMovieInput !== debouncedSearchTerm) {
-      resetPagination();
-    }
     const { data } = await axios.get(
       `${API_URL}&s=${debouncedSearchTerm}&page=${pageNumber}`
     );
-    console.log(`${API_URL}&s=${searchMovieInput}&page=${pageNumber}`);
-    console.log(data);
+    // console.log(`${API_URL}&s=${searchMovieInput}&page=${pageNumber}`);
+    // console.log(data);
     setTotalMoviesResults(data.totalResults);
     setTotalNumberOfPages(Math.floor(data.totalResults / 10));
     const mappedMovies: MovieDetail[] = data.Search.map((movie: any) => {
+      const movieInFavorites: MovieDetail | undefined =
+        favouriteMoviesCtx.favouriteMovies.find((newMovie) => {
+          return newMovie.id === movie.imbdID;
+        });
       return {
         image: movie.Poster,
         title: movie.Title,
         type: movie.Type,
         year: movie.Year,
         id: movie.imdbID,
+        addedToFavourites: movieInFavorites ? true : false,
       };
     });
 
+    mappedMovies.forEach((movie: MovieDetail) => {
+      if (favouriteMoviesCtx.isMovieInFavourites(movie)) {
+        movie.addedToFavourites = true;
+      }
+    });
+
     setFetchedMovies(mappedMovies);
+
     return mappedMovies;
   }
-
-  const resetPagination = (): void => {
-    setPage(1);
-  };
 
   const handlePageChange = async (
     event: React.ChangeEvent<unknown>,
     value: number
   ) => {
-    setPage(value);
+    searchCtx.changePaginationHandler(value);
     await fetchMovies(searchCtx.searchedInput, value);
   };
-
-  //   if (isLoading) {
-  //     return <div>Loading...</div>;
-  //   }
-  //   if (isError) {
-  //     return <div>Error! {isError}</div>;
-  //   }
 
   return (
     <div>
@@ -105,7 +107,7 @@ const EntryPage: FC = () => {
       </header>
       <div className={Styles.paginationContainer}>
         <Pagination
-          page={page}
+          page={searchCtx.pagination}
           onChange={handlePageChange}
           count={totalNumberOfPages}
           color="secondary"
@@ -123,6 +125,7 @@ const EntryPage: FC = () => {
                 year={movie.year}
                 type={movie.type}
                 key={index}
+                addedToFavourites={movie.addedToFavourites}
               />
             );
           })
@@ -130,9 +133,6 @@ const EntryPage: FC = () => {
           <p>error state</p>
         )}
       </main>
-
-      {/* {status}
-      {totalMoviesResults} */}
     </div>
   );
 };
