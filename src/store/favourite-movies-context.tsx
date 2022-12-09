@@ -21,6 +21,13 @@ const FavouriteMoviesContextProvider = ({ children }: ChildrenProps) => {
   const [favouriteMovies, setFavouriteMovies] = useState<MovieDetail[]>([]);
 
   const addFavouriteMovie = (newFavouriteMovie: MovieDetail): void => {
+    const found: MovieDetail | undefined = favouriteMovies.find((movie) => {
+      return movie.id === newFavouriteMovie.id;
+    });
+    if (found) {
+      removeFavouriteMovie(found.id);
+      return;
+    }
     setFavouriteMovies((previousFavouriteMovies: MovieDetail[]) => [
       ...previousFavouriteMovies,
       newFavouriteMovie,
