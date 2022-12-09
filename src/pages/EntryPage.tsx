@@ -31,6 +31,7 @@ const EntryPage: FC = () => {
   const [totalMoviesResults, setTotalMoviesResults] = useState<number>(0);
   const [totalNumberOfPages, setTotalNumberOfPages] = useState<number>(0);
   const [fetchedMovies, setFetchedMovies] = useState<MovieDetail[]>([]);
+  const [fetchingResults, setFetchingResults] = useState<boolean>(false);
 
   const {
     data,
@@ -58,6 +59,7 @@ const EntryPage: FC = () => {
     searchMovieInput: string,
     pageNumber: number
   ): Promise<MovieDetail[]> {
+    setFetchingResults(true);
     const { data } = await axios.get(
       `${API_URL}&s=${debouncedSearchTerm}&page=${pageNumber}`
     );
@@ -87,7 +89,7 @@ const EntryPage: FC = () => {
     });
 
     setFetchedMovies(mappedMovies);
-
+    setFetchingResults(false);
     return mappedMovies;
   }
 
@@ -101,7 +103,8 @@ const EntryPage: FC = () => {
 
   return (
     <div>
-      <BackDropSpinner></BackDropSpinner>
+      {isLoading ? <BackDropSpinner></BackDropSpinner> : null}
+
       <Link className={Styles.favouritePageLink} to="favourites">
         My Favourites
       </Link>
