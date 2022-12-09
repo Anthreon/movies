@@ -1,12 +1,18 @@
 import { FC, ReactNode, useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Styles from "./MovieDetailPage.module.css";
 import { DetailsAboutMovie, fetchMovieDetailPage } from "../util/http";
 import MoviePlaceholder from "../assets/MoviePlaceholder.jpg";
+import { Button } from "@mui/material";
 const MovieDetailPage: FC = () => {
   const [movieData, setMovieData] = useState<DetailsAboutMovie | undefined>();
   const location = useLocation();
+  const navigate = useNavigate();
   const movieId: string = location.state;
+
+  const navigateBack = (): void => {
+    navigate(-1);
+  };
 
   useEffect(() => {
     (async () => {
@@ -19,6 +25,14 @@ const MovieDetailPage: FC = () => {
 
   return (
     <div className={Styles.pageContainer}>
+      <Button
+        className={Styles.backButton}
+        onClick={navigateBack}
+        variant="contained"
+        disableElevation
+      >
+        Back
+      </Button>
       <main>
         <div className={Styles.container}>
           <div>

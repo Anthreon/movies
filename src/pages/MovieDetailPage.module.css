@@ -41,3 +41,19 @@
 .movieDataList li:nth-child(even) {
   color: crimson;
 }
+
+.navigationButton {
+}
+
+.navigationButton:hover {
+  cursor: pointer;
+  opacity: 0.9;
+}
+
+ul {
+  position: relative;
+}
+
+.backButton {
+  margin: 8px;
+}
