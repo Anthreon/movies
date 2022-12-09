@@ -9,6 +9,7 @@ import useDebounce from "../customHooks/useDebounce";
 import MovieDetailCard from "../components/MovieDetailCard";
 import { Pagination } from "@mui/material";
 import { FavouriteMoviesContext } from "../store/favourite-movies-context";
+import EmptySearch from "../components/EmptySearch";
 
 const API_URL = "http://omdbapi.com/?apikey=aa5c3014&r=json&type=movie";
 
@@ -105,34 +106,37 @@ const EntryPage: FC = () => {
       <header className={Styles.header}>
         <SearchInput></SearchInput>
       </header>
-      <div className={Styles.paginationContainer}>
-        <Pagination
-          page={searchCtx.pagination}
-          onChange={handlePageChange}
-          count={totalNumberOfPages}
-          color="secondary"
-        />
-      </div>
 
-      <main className={Styles.moviesContainer}>
-        {!isLoading && !isError ? (
-          fetchedMovies?.map((movie: MovieDetail, index: number) => {
-            return (
-              <MovieDetailCard
-                id={movie.id}
-                image={movie.image}
-                title={movie.title}
-                year={movie.year}
-                type={movie.type}
-                key={index}
-                addedToFavourites={movie.addedToFavourites}
-              />
-            );
-          })
-        ) : (
-          <p>error state</p>
-        )}
-      </main>
+      {validString ? (
+        <div>
+          <div className={Styles.paginationContainer}>
+            <Pagination
+              page={searchCtx.pagination}
+              onChange={handlePageChange}
+              count={totalNumberOfPages}
+              color="secondary"
+            />
+          </div>
+
+          <main className={Styles.moviesContainer}>
+            {fetchedMovies?.map((movie: MovieDetail, index: number) => {
+              return (
+                <MovieDetailCard
+                  id={movie.id}
+                  image={movie.image}
+                  title={movie.title}
+                  year={movie.year}
+                  type={movie.type}
+                  key={index}
+                  addedToFavourites={movie.addedToFavourites}
+                />
+              );
+            })}
+          </main>
+        </div>
+      ) : (
+        <EmptySearch></EmptySearch>
+      )}
     </div>
   );
 };
