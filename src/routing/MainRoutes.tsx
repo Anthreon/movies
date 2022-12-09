@@ -11,6 +11,7 @@ import {
   QueryClientProvider,
 } from "react-query";
 import FavouriteMoviesContextProvider from "../store/favourite-movies-context";
+import MovieDetailPage from "../pages/MovieDetailPage";
 
 const queryClient = new QueryClient();
 
@@ -23,6 +24,7 @@ const MainRoutes: FC = () => {
             <Routes>
               <Route path="/" element={<EntryPage />} />
               <Route path="favourites" element={<FavouriteMovies />} />
+              <Route path="movieDetail/:id" element={<MovieDetailPage />} />
             </Routes>
           </BrowserRouter>
         </FavouriteMoviesContextProvider>

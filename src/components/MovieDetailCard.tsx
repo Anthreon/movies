@@ -5,6 +5,7 @@ import StarBorderIcon from "@mui/icons-material/StarBorder";
 import StarRateIcon from "@mui/icons-material/StarRate";
 import { FavouriteMoviesContext } from "../store/favourite-movies-context";
 import { MovieDetail } from "../pages/EntryPage";
+import { Link } from "react-router-dom";
 
 const MovieDetailCard: FC<MovieDetail> = (props: MovieDetail) => {
   const favouriteMoviesCtx = useContext(FavouriteMoviesContext);
@@ -14,29 +15,35 @@ const MovieDetailCard: FC<MovieDetail> = (props: MovieDetail) => {
   };
 
   return (
-    <div className={Styles.cardContainer} id={props.id}>
-      <div onClick={addMovie} className={Styles.starWrapper}>
-        {props.addedToFavourites ? (
-          <StarRateIcon fontSize="large"></StarRateIcon>
-        ) : (
-          <StarBorderIcon fontSize="large"></StarBorderIcon>
-        )}
-      </div>
-      <div>
-        <img
-          alt="Movie"
-          className={Styles.cardImage}
-          src={props.image.length > 5 ? props.image : MoviePlaceholder}
-        ></img>
-      </div>
-      <div className={Styles.cardTextContainer}>
-        <div className={Styles.container}>
-          <h2 className={Styles.cardTitle}>{props.title} </h2>
-          <h4 className={Styles.cardYear}>{props.year}</h4>
-          <h5 className={Styles.cardType}>{props.type}</h5>
+    <Link
+      to={{
+        pathname: `movieDetail/${props.id}`,
+      }}
+    >
+      <div className={Styles.cardContainer} id={props.id}>
+        <div onClick={addMovie} className={Styles.starWrapper}>
+          {props.addedToFavourites ? (
+            <StarRateIcon fontSize="large"></StarRateIcon>
+          ) : (
+            <StarBorderIcon fontSize="large"></StarBorderIcon>
+          )}
+        </div>
+        <div>
+          <img
+            alt="Movie"
+            className={Styles.cardImage}
+            src={props.image.length > 5 ? props.image : MoviePlaceholder}
+          ></img>
+        </div>
+        <div className={Styles.cardTextContainer}>
+          <div className={Styles.container}>
+            <h2 className={Styles.cardTitle}>{props.title} </h2>
+            <h4 className={Styles.cardYear}>{props.year}</h4>
+            <h5 className={Styles.cardType}>{props.type}</h5>
+          </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
