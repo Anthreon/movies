@@ -10,6 +10,7 @@ import MovieDetailCard from "../components/MovieDetailCard";
 import { Pagination } from "@mui/material";
 import { FavouriteMoviesContext } from "../store/favourite-movies-context";
 import EmptySearch from "../components/EmptySearch";
+import BackDropSpinner from "../components/BackDropSpinner";
 
 const API_URL = "http://omdbapi.com/?apikey=aa5c3014&r=json&type=movie";
 
@@ -100,6 +101,7 @@ const EntryPage: FC = () => {
 
   return (
     <div>
+      <BackDropSpinner></BackDropSpinner>
       <Link className={Styles.favouritePageLink} to="favourites">
         My Favourites
       </Link>
