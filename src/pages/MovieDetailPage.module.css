@@ -1,3 +1,13 @@
+.pageContainer {
+  position: absolute;
+  min-height: 100vh;
+  background-image: url("../assets//background.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: #121485;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+}
+
 .movieDetails {
   display: flex;
   padding: 48px;
@@ -9,6 +19,7 @@
 }
 
 .img {
+  border-radius: 8px;
   float: left;
   max-width: 100%;
   width: 500px;
@@ -18,11 +29,15 @@
   padding: 16px;
   border-top-right-radius: 8px;
   border-bottom-left-radius: 8px;
-  background-color: bisque;
+  background-color: rgb(224, 218, 211);
   list-style: none;
 }
 
 .movieDataList li {
   padding: 8px;
   font-weight: bold;
+}
+
+.movieDataList li:nth-child(even) {
+  color: crimson;
 }
