@@ -103,7 +103,9 @@ const EntryPage: FC = () => {
 
   return (
     <div>
-      {fetchingResults ? <BackDropSpinner></BackDropSpinner> : null}
+      {fetchingResults && status !== "error" ? (
+        <BackDropSpinner></BackDropSpinner>
+      ) : null}
 
       <Link className={Styles.favouritePageLink} to="favourites">
         My Favourites
