@@ -19,6 +19,7 @@ const MovieDetailCard: FC<MovieDetail> = (props: MovieDetail) => {
       to={{
         pathname: `movieDetail/${props.id}`,
       }}
+      state={props.id}
     >
       <div className={Styles.cardContainer} id={props.id}>
         <div onClick={addMovie} className={Styles.starWrapper}>
