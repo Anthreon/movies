@@ -8,6 +8,7 @@ import { SearchContext } from "../store/search-context";
 import useDebounce from "../customHooks/useDebounce";
 import MovieDetailCard from "../components/MovieDetailCard";
 import { Pagination } from "@mui/material";
+import { FavouriteMoviesContext } from "../store/favourite-movies-context";
 
 const API_URL = "http://omdbapi.com/?apikey=aa5c3014&r=json&type=movie";
 
@@ -21,6 +22,7 @@ export interface MovieDetail {
 
 const EntryPage: FC = () => {
   const searchCtx = useContext(SearchContext);
+  const favouriteMoviesCtx = useContext(FavouriteMoviesContext);
   const validString: boolean = searchCtx.searchedInput.length > 2;
   const debouncedSearchTerm = useDebounce(searchCtx.searchedInput, 500);
   const [totalMoviesResults, setTotalMoviesResults] = useState<number>(0);

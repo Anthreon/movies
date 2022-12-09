@@ -9,6 +9,7 @@
   text-align: center;
   background-color: rgb(242, 223, 193);
   color: black;
+  z-index: 0;
 }
 
 .cardContainer:hover {
@@ -42,4 +43,20 @@
 
 .cardType {
   font-size: 12px;
+}
+
+.starWrapper {
+  color: rgb(216, 220, 18);
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  z-index: 25000;
+
+  width: 40px;
+}
+
+.starWrapper:hover {
+  background-color: rebeccapurple;
+  border: solid;
+  border-radius: 50%;
 }

@@ -10,6 +10,7 @@ import {
   QueryClient,
   QueryClientProvider,
 } from "react-query";
+import FavouriteMoviesContextProvider from "../store/favourite-movies-context";
 
 const queryClient = new QueryClient();
 
@@ -17,12 +18,14 @@ const MainRoutes: FC = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <SearchContextProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<EntryPage />} />
-            <Route path="favourites" element={<FavouriteMovies />} />
-          </Routes>
-        </BrowserRouter>
+        <FavouriteMoviesContextProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<EntryPage />} />
+              <Route path="favourites" element={<FavouriteMovies />} />
+            </Routes>
+          </BrowserRouter>
+        </FavouriteMoviesContextProvider>
       </SearchContextProvider>
     </QueryClientProvider>
   );
