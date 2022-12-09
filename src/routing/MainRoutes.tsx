@@ -25,6 +25,10 @@ const MainRoutes: FC = () => {
               <Route path="/" element={<EntryPage />} />
               <Route path="favourites" element={<FavouriteMovies />} />
               <Route path="movieDetail/:id" element={<MovieDetailPage />} />
+              <Route
+                path="favourites/movieDetail/:id"
+                element={<MovieDetailPage />}
+              />
             </Routes>
           </BrowserRouter>
         </FavouriteMoviesContextProvider>
