@@ -22,6 +22,7 @@ const EntryPage: FC = () => {
   const [totalNumberOfPages, setTotalNumberOfPages] = useState<number>(0);
   const [fetchedMovies, setFetchedMovies] = useState<MovieDetail[]>([]);
   const [currentScrollPosition, setCurrentScrollPosition] = useState<number>(0);
+  const [pageInError, setPageInError] = useState<boolean>(false);
 
   const listenForScroll = () => {
     setCurrentScrollPosition(window.scrollY);
@@ -65,10 +66,16 @@ const EntryPage: FC = () => {
   );
 
   async function handleMoviesState(pageNumber: number): Promise<void> {
-    const movies: { movies: MovieDetail[]; totalResults: number } =
-      await fetchMoviesBySearch(debouncedSearchTerm, pageNumber);
-    setTotalNumberOfPages(Math.floor(movies.totalResults / 10));
-    setFetchedMovies(movies.movies);
+    try {
+      setPageInError(false);
+      const movies: { movies: MovieDetail[]; totalResults: number } =
+        await fetchMoviesBySearch(debouncedSearchTerm, pageNumber);
+      setTotalNumberOfPages(Math.floor(movies.totalResults / 10));
+      setFetchedMovies(movies.movies);
+    } catch (error: any) {
+      console.log(error);
+      setPageInError(true);
+    }
   }
 
   const handlePageChange = async (
@@ -79,7 +86,24 @@ const EntryPage: FC = () => {
     await handleMoviesState(value);
   };
 
-  return (
+  const errorPage: JSX.Element = (
+    <div>
+      {isLoading && status !== "error" ? (
+        <BackDropSpinner></BackDropSpinner>
+      ) : null}
+
+      <Link className={Styles.favouritePageLink} to="favourites">
+        My Favourites
+      </Link>
+      <header className={Styles.header}>
+        <SearchInput></SearchInput>
+      </header>
+
+      <NoResultsFound></NoResultsFound>
+    </div>
+  );
+
+  const validPage: JSX.Element = (
     <div>
       {isLoading && status !== "error" ? (
         <BackDropSpinner></BackDropSpinner>
@@ -125,6 +149,8 @@ const EntryPage: FC = () => {
       )}
     </div>
   );
+
+  return <>{pageInError ? errorPage : validPage}</>;
 };
 
 export default EntryPage;
