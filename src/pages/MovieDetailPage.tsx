@@ -8,12 +8,14 @@ import BackDropSpinner from "../components/BackDropSpinner";
 import StarIcon from "../components/StarIcon";
 import { FavouriteMoviesContext } from "../store/favourite-movies-context";
 import { DetailsAboutMovie, MovieDetail } from "../types/interfaces";
+import { JsxElement } from "typescript";
 
 const MovieDetailPage: FC = () => {
   const favouriteMoviesCtx = useContext(FavouriteMoviesContext);
   const [movieData, setMovieData] = useState<DetailsAboutMovie | undefined>();
   const [loading, setLoading] = useState<boolean>(true);
   const [isMovieFavourite, setIsMovieFavourite] = useState<boolean>(false);
+  const [pageInError, setPageInError] = useState<boolean>(false);
   const location = useLocation();
   const navigate = useNavigate();
   const movie: MovieDetail = location.state;
@@ -36,19 +38,24 @@ const MovieDetailPage: FC = () => {
 
   useEffect(() => {
     (async () => {
-      const movieDetails: DetailsAboutMovie = await fetchMovieDetailPage(
-        movie.id
-      );
-      setMovieData(movieDetails);
-      window.scroll(0, 0);
-      const movieIsFavourite: boolean =
-        favouriteMoviesCtx.isMovieInFavourites(movie);
-      setIsMovieFavourite(movieIsFavourite);
-      setLoading(false);
+      try {
+        const movieDetails: DetailsAboutMovie = await fetchMovieDetailPage(
+          movie.id
+        );
+        setMovieData(movieDetails);
+        window.scroll(0, 0);
+        const movieIsFavourite: boolean =
+          favouriteMoviesCtx.isMovieInFavourites(movie);
+        setIsMovieFavourite(movieIsFavourite);
+        setLoading(false);
+      } catch (error: any) {
+        setLoading(false);
+        setPageInError(true);
+      }
     })();
   }, []);
 
-  return (
+  const pageWithoutError: JSX.Element = (
     <>
       {loading && <BackDropSpinner></BackDropSpinner>}
       <div className={Styles.pageContainer}>
@@ -102,6 +109,10 @@ const MovieDetailPage: FC = () => {
       </div>
     </>
   );
+
+  const pageWithError: JSX.Element = <div>ERORRRRR</div>;
+
+  return <>{pageInError ? pageWithError : pageWithoutError}</>;
 };
 
 export default MovieDetailPage;
