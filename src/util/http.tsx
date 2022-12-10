@@ -1,13 +1,7 @@
 import axios from "axios";
 import { DetailsAboutMovie, MovieDetail } from "../types/interfaces";
 import { OMBD_API_URL } from "./constants";
-
-function lowerObjectKeys(obj: any): any {
-  return Object.keys(obj).reduce((accumulator: any, key: any) => {
-    accumulator[key.toLowerCase()] = obj[key];
-    return accumulator;
-  }, {});
-}
+import { lowerObjectKeys } from "./helperFunctions";
 
 export const fetchMovieDetailPage = async (
   pageId: string

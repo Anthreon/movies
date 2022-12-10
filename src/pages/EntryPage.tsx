@@ -16,16 +16,9 @@ import { fetchMoviesBySearch } from "../util/http";
 const EntryPage: FC = () => {
   const searchCtx = useContext(SearchContext);
   const validString: boolean = searchCtx.searchedInput.length > 2;
-  const debouncedSearchTerm = useDebounce(searchCtx.searchedInput, 1000);
+  const debouncedSearchTerm = useDebounce(searchCtx.searchedInput, 500);
   const [totalNumberOfPages, setTotalNumberOfPages] = useState<number>(0);
   const [fetchedMovies, setFetchedMovies] = useState<MovieDetail[]>([]);
-
-  const handleMoviesFetching = async (): Promise<void> => {
-    const fetchedMovies: { movies: MovieDetail[]; totalResults: number } =
-      await fetchMoviesBySearch(debouncedSearchTerm, searchCtx.pagination);
-    setTotalNumberOfPages(Math.floor(fetchedMovies.totalResults / 10));
-    setFetchedMovies(fetchedMovies.movies);
-  };
 
   const {
     data,
@@ -37,16 +30,27 @@ const EntryPage: FC = () => {
     isLoading: boolean;
     isError: boolean;
     status: string;
-  } = useQuery(["movies", debouncedSearchTerm], handleMoviesFetching, {
-    enabled: validString,
-  });
+  } = useQuery(
+    ["movies", debouncedSearchTerm],
+    handleMoviesState.bind(handleMoviesState, searchCtx.pagination),
+    {
+      enabled: validString,
+    }
+  );
+
+  async function handleMoviesState(pageNumber: number): Promise<void> {
+    const movies: { movies: MovieDetail[]; totalResults: number } =
+      await fetchMoviesBySearch(debouncedSearchTerm, pageNumber);
+    setTotalNumberOfPages(Math.floor(movies.totalResults / 10));
+    setFetchedMovies(movies.movies);
+  }
 
   const handlePageChange = async (
     event: React.ChangeEvent<unknown>,
     value: number
   ) => {
     searchCtx.changePaginationHandler(value);
-    await handleMoviesFetching();
+    await handleMoviesState(value);
   };
 
   return (
