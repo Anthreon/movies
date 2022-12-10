@@ -1,4 +1,4 @@
-import { FC, useContext, useEffect, useState } from "react";
+import { FC, useContext, useState } from "react";
 import SearchInput from "../components/SearchInput";
 import Styles from "./EntryPage.module.css";
 import { Link } from "react-router-dom";
@@ -8,7 +8,6 @@ import { SearchContext } from "../store/search-context";
 import useDebounce from "../customHooks/useDebounce";
 import MovieDetailCard from "../components/MovieDetailCard";
 import { Pagination } from "@mui/material";
-import { FavouriteMoviesContext } from "../store/favourite-movies-context";
 import EmptySearch from "../components/EmptySearch";
 import BackDropSpinner from "../components/BackDropSpinner";
 import NoResultsFound from "../components/NoResultsFound";
@@ -28,7 +27,6 @@ const EntryPage: FC = () => {
   const searchCtx = useContext(SearchContext);
   const validString: boolean = searchCtx.searchedInput.length > 2;
   const debouncedSearchTerm = useDebounce(searchCtx.searchedInput, 500);
-  const [totalMoviesResults, setTotalMoviesResults] = useState<number>(0);
   const [totalNumberOfPages, setTotalNumberOfPages] = useState<number>(0);
   const [fetchedMovies, setFetchedMovies] = useState<MovieDetail[]>([]);
   const [fetchingResults, setFetchingResults] = useState<boolean>(false);
@@ -63,7 +61,6 @@ const EntryPage: FC = () => {
     const { data } = await axios.get(
       `${API_URL}&s=${debouncedSearchTerm}&page=${pageNumber}`
     );
-    setTotalMoviesResults(data.totalResults);
     setTotalNumberOfPages(Math.floor(data.totalResults / 10));
     const mappedMovies: MovieDetail[] = data.Search.map((movie: any) => {
       return {

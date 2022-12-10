@@ -1,4 +1,4 @@
-import { FC, ReactNode, useContext, useEffect, useState } from "react";
+import { FC, useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Styles from "./MovieDetailPage.module.css";
 import { DetailsAboutMovie, fetchMovieDetailPage } from "../util/http";
@@ -8,6 +8,7 @@ import BackDropSpinner from "../components/BackDropSpinner";
 import StarIcon from "../components/StarIcon";
 import { FavouriteMoviesContext } from "../store/favourite-movies-context";
 import { MovieDetail } from "./EntryPage";
+
 const MovieDetailPage: FC = () => {
   const favouriteMoviesCtx = useContext(FavouriteMoviesContext);
   const [movieData, setMovieData] = useState<DetailsAboutMovie | undefined>();
@@ -30,6 +31,8 @@ const MovieDetailPage: FC = () => {
   };
 
   useEffect(() => {
+    console.log(movie);
+
     (async () => {
       const movieDetails: DetailsAboutMovie = await fetchMovieDetailPage(
         movie.id
@@ -61,7 +64,11 @@ const MovieDetailPage: FC = () => {
               <section className={Styles.imgWrapper}>
                 <img
                   className={Styles.img}
-                  src={movieData?.poster ? movieData.poster : MoviePlaceholder}
+                  src={
+                    movieData?.poster !== "N/A"
+                      ? movieData?.poster
+                      : MoviePlaceholder
+                  }
                   alt="Movie image"
                 />
                 <div>
