@@ -16,7 +16,7 @@ import { fetchMoviesBySearch } from "../util/http";
 const EntryPage: FC = () => {
   const searchCtx = useContext(SearchContext);
   const validString: boolean = searchCtx.searchedInput.length > 2;
-  const debouncedSearchTerm = useDebounce(searchCtx.searchedInput, 500);
+  const debouncedSearchTerm = useDebounce(searchCtx.searchedInput, 1000);
   const [totalNumberOfPages, setTotalNumberOfPages] = useState<number>(0);
   const [fetchedMovies, setFetchedMovies] = useState<MovieDetail[]>([]);
 
