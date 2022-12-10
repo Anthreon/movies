@@ -8,7 +8,7 @@ const EmptySearch: FC = () => {
         <img className={Styles.img} src={EmptyResults}></img>
       </div>
       <div className={Styles.text}>
-        <h1>No Search Yet</h1>
+        <h1>Search your wonderful movie</h1>
       </div>
     </div>
   );
