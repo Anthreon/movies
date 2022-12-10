@@ -43,9 +43,6 @@
   color: crimson;
 }
 
-.navigationButton {
-}
-
 .navigationButton:hover {
   cursor: pointer;
   opacity: 0.9;
