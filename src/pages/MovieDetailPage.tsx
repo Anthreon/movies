@@ -31,8 +31,6 @@ const MovieDetailPage: FC = () => {
   };
 
   useEffect(() => {
-    console.log(movie);
-
     (async () => {
       const movieDetails: DetailsAboutMovie = await fetchMovieDetailPage(
         movie.id
