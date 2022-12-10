@@ -12,8 +12,7 @@ import EmptySearch from "../components/EmptySearch";
 import BackDropSpinner from "../components/BackDropSpinner";
 import NoResultsFound from "../components/NoResultsFound";
 import { MovieDetail } from "../types/interfaces";
-
-const API_URL = "http://omdbapi.com/?apikey=aa5c3014&r=json&type=movie";
+import { OMBD_API_URL } from "../util/constants";
 
 const EntryPage: FC = () => {
   const searchCtx = useContext(SearchContext);
@@ -51,7 +50,7 @@ const EntryPage: FC = () => {
   ): Promise<MovieDetail[]> {
     setFetchingResults(true);
     const { data } = await axios.get(
-      `${API_URL}&s=${debouncedSearchTerm}&page=${pageNumber}`
+      `${OMBD_API_URL}&s=${debouncedSearchTerm}&page=${pageNumber}`
     );
     setTotalNumberOfPages(Math.floor(data.totalResults / 10));
     const mappedMovies: MovieDetail[] = data.Search.map((movie: any) => {

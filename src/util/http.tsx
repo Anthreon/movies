@@ -1,7 +1,6 @@
 import axios from "axios";
 import { DetailsAboutMovie } from "../types/interfaces";
-
-const API_DETAIL_URL = "http://omdbapi.com/?apikey=aa5c3014&r=json&type=movie";
+import { OMBD_API_URL } from "./constants";
 
 function lowerObjectKeys(obj: any) {
   return Object.keys(obj).reduce((accumulator: any, key: any) => {
@@ -11,7 +10,7 @@ function lowerObjectKeys(obj: any) {
 }
 
 export const fetchMovieDetailPage = async (pageId: string) => {
-  const { data } = await axios.get(`${API_DETAIL_URL}&i=${pageId}`);
+  const { data } = await axios.get(`${OMBD_API_URL}&i=${pageId}`);
   const movie: DetailsAboutMovie = lowerObjectKeys(data);
   delete movie.ratings;
   return movie;
