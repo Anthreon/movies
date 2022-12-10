@@ -1,17 +1,17 @@
-import { FC, useContext, useState, useEffect } from "react";
+import { FC, useContext } from "react";
 import Styles from "./MovieDetailCard.module.css";
 import MoviePlaceholder from "../assets/MoviePlaceholder.jpg";
-
-import { FavouriteMoviesContext } from "../store/favourite-movies-context";
 import { MovieDetail } from "../pages/EntryPage";
 import { Link } from "react-router-dom";
+import { FavouriteMoviesContext } from "../store/favourite-movies-context";
 import StarIcon from "./StarIcon";
 
 const MovieDetailCard: FC<MovieDetail> = (props: MovieDetail) => {
   const favouriteMoviesCtx = useContext(FavouriteMoviesContext);
-  const addMovie = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+
+  const removeMovie = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     event.preventDefault();
-    favouriteMoviesCtx.addFavouriteMovie(props);
+    favouriteMoviesCtx.removeFavouriteMovie(props.id);
   };
 
   return (
@@ -19,12 +19,15 @@ const MovieDetailCard: FC<MovieDetail> = (props: MovieDetail) => {
       to={{
         pathname: `movieDetail/${props.id}`,
       }}
-      state={props.id}
+      state={props}
     >
       <div className={Styles.cardContainer} id={props.id}>
-        <div onClick={addMovie} className={Styles.starWrapper}>
-          <StarIcon selected={props.addedToFavourites}></StarIcon>
-        </div>
+        {props.favouritePage ? (
+          <div onClick={removeMovie} className={Styles.starWrapper}>
+            <StarIcon selected={true}></StarIcon>
+          </div>
+        ) : null}
+
         <div>
           <img
             alt="Movie"

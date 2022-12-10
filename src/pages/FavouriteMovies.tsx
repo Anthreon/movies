@@ -28,7 +28,7 @@ const FavouriteMovies: FC = () => {
                   year={movie.year}
                   type={movie.type}
                   key={index}
-                  addedToFavourites={true}
+                  favouritePage={true}
                 />
               );
             }

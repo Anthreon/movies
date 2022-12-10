@@ -58,3 +58,11 @@ ul {
 .backButton {
   margin: 8px;
 }
+.starWrapper {
+  color: rgb(200, 169, 30);
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  z-index: 2;
+  width: 40px;
+}
