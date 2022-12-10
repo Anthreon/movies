@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useState } from "react";
+import { createContext, useState } from "react";
 import { ChildrenProps } from "../types/interfaces";
 
 export const SearchContext = createContext({
