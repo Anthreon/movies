@@ -51,12 +51,5 @@
   right: 10px;
   top: 10px;
   z-index: 25000;
-
   width: 40px;
-}
-
-.starWrapper:hover {
-  background-color: rebeccapurple;
-  border: solid;
-  border-radius: 50%;
 }

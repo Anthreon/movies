@@ -1,16 +1,16 @@
-import { FC, SVGProps, useContext, useState, useEffect } from "react";
+import { FC, useContext, useState, useEffect } from "react";
 import Styles from "./MovieDetailCard.module.css";
 import MoviePlaceholder from "../assets/MoviePlaceholder.jpg";
-import StarBorderIcon from "@mui/icons-material/StarBorder";
-import StarRateIcon from "@mui/icons-material/StarRate";
+
 import { FavouriteMoviesContext } from "../store/favourite-movies-context";
 import { MovieDetail } from "../pages/EntryPage";
 import { Link } from "react-router-dom";
+import StarIcon from "./StarIcon";
 
 const MovieDetailCard: FC<MovieDetail> = (props: MovieDetail) => {
   const favouriteMoviesCtx = useContext(FavouriteMoviesContext);
-
-  const addMovie = () => {
+  const addMovie = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    event.preventDefault();
     favouriteMoviesCtx.addFavouriteMovie(props);
   };
 
@@ -23,11 +23,7 @@ const MovieDetailCard: FC<MovieDetail> = (props: MovieDetail) => {
     >
       <div className={Styles.cardContainer} id={props.id}>
         <div onClick={addMovie} className={Styles.starWrapper}>
-          {props.addedToFavourites ? (
-            <StarRateIcon fontSize="large"></StarRateIcon>
-          ) : (
-            <StarBorderIcon fontSize="large"></StarBorderIcon>
-          )}
+          <StarIcon selected={props.addedToFavourites}></StarIcon>
         </div>
         <div>
           <img
