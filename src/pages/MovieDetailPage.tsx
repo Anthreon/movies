@@ -1,13 +1,13 @@
 import { FC, useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Styles from "./MovieDetailPage.module.css";
-import { DetailsAboutMovie, fetchMovieDetailPage } from "../util/http";
+import { fetchMovieDetailPage } from "../util/http";
 import MoviePlaceholder from "../assets/MoviePlaceholder.jpg";
 import { Button } from "@mui/material";
 import BackDropSpinner from "../components/BackDropSpinner";
 import StarIcon from "../components/StarIcon";
 import { FavouriteMoviesContext } from "../store/favourite-movies-context";
-import { MovieDetail } from "./EntryPage";
+import { DetailsAboutMovie, MovieDetail } from "../types/interfaces";
 
 const MovieDetailPage: FC = () => {
   const favouriteMoviesCtx = useContext(FavouriteMoviesContext);

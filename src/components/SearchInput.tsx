@@ -1,4 +1,4 @@
-import { FC, useContext, useState } from "react";
+import { FC, useContext } from "react";
 import { SearchContext } from "../store/search-context";
 import Styles from "./SearchInput.module.css";
 

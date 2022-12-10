@@ -1,9 +1,5 @@
-import { createContext, ReactNode, useState } from "react";
-import { MovieDetail } from "../pages/EntryPage";
-
-interface ChildrenProps {
-  children?: ReactNode;
-}
+import { createContext, useState } from "react";
+import { ChildrenProps, MovieDetail } from "../types/interfaces";
 
 interface FavouriteContext {
   favouriteMovies: MovieDetail[];

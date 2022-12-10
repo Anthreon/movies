@@ -3,7 +3,7 @@ import { FC, useContext } from "react";
 import { Link } from "react-router-dom";
 import MovieDetailCard from "../components/MovieDetailCard";
 import { FavouriteMoviesContext } from "../store/favourite-movies-context";
-import { MovieDetail } from "./EntryPage";
+import { MovieDetail } from "../types/interfaces";
 import Styles from "./FavouriteMovies.module.css";
 
 const FavouriteMovies: FC = () => {

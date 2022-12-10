@@ -11,17 +11,9 @@ import { Pagination } from "@mui/material";
 import EmptySearch from "../components/EmptySearch";
 import BackDropSpinner from "../components/BackDropSpinner";
 import NoResultsFound from "../components/NoResultsFound";
+import { MovieDetail } from "../types/interfaces";
 
 const API_URL = "http://omdbapi.com/?apikey=aa5c3014&r=json&type=movie";
-
-export interface MovieDetail {
-  image: string;
-  title: string;
-  type: string;
-  year: string;
-  id: string;
-  favouritePage?: boolean;
-}
 
 const EntryPage: FC = () => {
   const searchCtx = useContext(SearchContext);

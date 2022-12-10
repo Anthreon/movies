@@ -1,32 +1,5 @@
 import axios from "axios";
-
-export interface DetailsAboutMovie {
-  actors: string;
-  awards: string;
-  boxoffice: string;
-  country: string;
-  director: string;
-  dvd: string;
-  genre: string;
-  imdbid: string;
-  imdbrating: string;
-  imdbvotes: string;
-  language: string;
-  metascore: string;
-  plot: string;
-  poster: string;
-  production: string;
-  rated: string;
-  ratings?: [{ Source: string; Value: string }];
-  released: string;
-  response: string;
-  runtime: string;
-  title: string;
-  type: string;
-  website: string;
-  writer: string;
-  year: string;
-}
+import { DetailsAboutMovie } from "../types/interfaces";
 
 const API_DETAIL_URL = "http://omdbapi.com/?apikey=aa5c3014&r=json&type=movie";
 

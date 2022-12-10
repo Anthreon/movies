@@ -1,8 +1,5 @@
 import { createContext, ReactNode, useState } from "react";
-
-interface SearchProps {
-  children?: ReactNode;
-}
+import { ChildrenProps } from "../types/interfaces";
 
 export const SearchContext = createContext({
   searchedInput: "",
@@ -12,7 +9,7 @@ export const SearchContext = createContext({
   resetPagination: () => {},
 });
 
-const SearchContextProvider = ({ children }: SearchProps) => {
+const SearchContextProvider = ({ children }: ChildrenProps) => {
   const [searchInput, setSearchInput] = useState<string>("");
   const [pagination, setPagination] = useState<number>(1);
 
