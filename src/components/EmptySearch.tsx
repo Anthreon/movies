@@ -1,6 +1,6 @@
 import { FC } from "react";
 import Styles from "./EmptySearch.module.css";
-import EmptyResults from "../assets/empty.png";
+import EmptyResults from "../assets/images/empty.png";
 const EmptySearch: FC = () => {
   return (
     <div className={Styles.emptyContainer}>

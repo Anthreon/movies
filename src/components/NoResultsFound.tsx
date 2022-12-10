@@ -1,6 +1,6 @@
 import { FC } from "react";
 import Styles from "./NoResultsFound.module.css";
-import NoResults from "../assets/noResults.png";
+import NoResults from "../assets/images/noResults.png";
 
 const NoResultsFound: FC = () => {
   return (

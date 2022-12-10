@@ -2,7 +2,7 @@ import { FC, useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Styles from "./MovieDetailPage.module.css";
 import { fetchMovieDetailPage } from "../util/http";
-import MoviePlaceholder from "../assets/MoviePlaceholder.jpg";
+import MoviePlaceholder from "../assets/images/MoviePlaceholder.jpg";
 import { Button } from "@mui/material";
 import BackDropSpinner from "../components/BackDropSpinner";
 import StarIcon from "../components/StarIcon";

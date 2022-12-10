@@ -1,6 +1,6 @@
 import { FC, useContext } from "react";
 import Styles from "./MovieDetailCard.module.css";
-import MoviePlaceholder from "../assets/MoviePlaceholder.jpg";
+import MoviePlaceholder from "../assets/images/MoviePlaceholder.jpg";
 import { Link } from "react-router-dom";
 import { FavouriteMoviesContext } from "../store/favourite-movies-context";
 import StarIcon from "./StarIcon";
