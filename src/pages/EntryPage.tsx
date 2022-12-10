@@ -12,9 +12,11 @@ import BackDropSpinner from "../components/BackDropSpinner";
 import NoResultsFound from "../components/NoResultsFound";
 import { MovieDetail } from "../types/interfaces";
 import { fetchMoviesBySearch } from "../util/http";
+import { ScrollContext } from "../store/scroll-history.context";
 
 const EntryPage: FC = () => {
   const searchCtx = useContext(SearchContext);
+  const scrollCtx = useContext(ScrollContext);
   const validString: boolean = searchCtx.searchedInput.length > 2;
   const debouncedSearchTerm = useDebounce(searchCtx.searchedInput, 1000);
   const [totalNumberOfPages, setTotalNumberOfPages] = useState<number>(0);
@@ -39,6 +41,9 @@ const EntryPage: FC = () => {
   );
 
   async function handleMoviesState(pageNumber: number): Promise<void> {
+    // scrollCtx.changeScrollPositionHandler("entryPage", 200);
+    // console.log(scrollCtx);
+
     const movies: { movies: MovieDetail[]; totalResults: number } =
       await fetchMoviesBySearch(debouncedSearchTerm, pageNumber);
     setTotalNumberOfPages(Math.floor(movies.totalResults / 10));

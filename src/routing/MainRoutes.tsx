@@ -6,6 +6,7 @@ import SearchContextProvider from "../store/search-context";
 import { QueryClient, QueryClientProvider } from "react-query";
 import FavouriteMoviesContextProvider from "../store/favourite-movies-context";
 import MovieDetailPage from "../pages/MovieDetailPage";
+import ScrollContextProvider from "../store/scroll-history.context";
 
 const queryClient = new QueryClient();
 
@@ -14,17 +15,19 @@ const MainRoutes: FC = () => {
     <QueryClientProvider client={queryClient}>
       <SearchContextProvider>
         <FavouriteMoviesContextProvider>
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<EntryPage />} />
-              <Route path="favourites" element={<FavouriteMovies />} />
-              <Route path="movieDetail/:id" element={<MovieDetailPage />} />
-              <Route
-                path="favourites/movieDetail/:id"
-                element={<MovieDetailPage />}
-              />
-            </Routes>
-          </BrowserRouter>
+          <ScrollContextProvider>
+            <BrowserRouter>
+              <Routes>
+                <Route path="/" element={<EntryPage />} />
+                <Route path="favourites" element={<FavouriteMovies />} />
+                <Route path="movieDetail/:id" element={<MovieDetailPage />} />
+                <Route
+                  path="favourites/movieDetail/:id"
+                  element={<MovieDetailPage />}
+                />
+              </Routes>
+            </BrowserRouter>
+          </ScrollContextProvider>
         </FavouriteMoviesContextProvider>
       </SearchContextProvider>
     </QueryClientProvider>

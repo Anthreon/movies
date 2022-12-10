@@ -9,7 +9,10 @@ interface ScrollPositions {
 
 export const ScrollContext = createContext({
   scrollPositionOfPage: {},
-  changeScrollPositionHandler: (keyName: string, scrollValue: number) => {},
+  changeScrollPositionHandler: (
+    keyName: "entryPage" | "favouritePage" | "detailPage",
+    scrollValue: number
+  ) => {},
 });
 
 const ScrollContextProvider = ({ children }: ChildrenProps) => {
@@ -20,7 +23,7 @@ const ScrollContextProvider = ({ children }: ChildrenProps) => {
   });
 
   const changeScrollPositionHandler = (
-    keyName: string,
+    keyName: "entryPage" | "favouritePage" | "detailPage",
     scrollValue: number
   ): void => {
     const newPositions: ScrollPositions = JSON.parse(
