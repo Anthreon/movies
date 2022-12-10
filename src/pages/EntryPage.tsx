@@ -86,7 +86,7 @@ const EntryPage: FC = () => {
       ) : null}
 
       <Link className={Styles.favouritePageLink} to="favourites">
-        My Favourites {currentScrollPosition}
+        My Favourites
       </Link>
       <header className={Styles.header}>
         <SearchInput></SearchInput>

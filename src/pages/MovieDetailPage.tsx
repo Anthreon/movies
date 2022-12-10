@@ -36,6 +36,7 @@ const MovieDetailPage: FC = () => {
         movie.id
       );
       setMovieData(movieDetails);
+      window.scroll(0, 0);
       const movieIsFavourite: boolean =
         favouriteMoviesCtx.isMovieInFavourites(movie);
       setIsMovieFavourite(movieIsFavourite);
@@ -46,7 +47,6 @@ const MovieDetailPage: FC = () => {
   return (
     <>
       {loading && <BackDropSpinner></BackDropSpinner>}
-
       <div className={Styles.pageContainer}>
         <Button
           className={Styles.backButton}
