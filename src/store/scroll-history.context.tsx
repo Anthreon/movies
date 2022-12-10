@@ -8,7 +8,7 @@ interface ScrollPositions {
 }
 
 export const ScrollContext = createContext({
-  scrollPositionOfPage: {},
+  scrollPositionOfPage: { entryPage: 0, favouritePage: 0, detailPage: 0 },
   changeScrollPositionHandler: (
     keyName: "entryPage" | "favouritePage" | "detailPage",
     scrollValue: number

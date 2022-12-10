@@ -1,4 +1,4 @@
-import { FC, useContext, useState } from "react";
+import { FC, useContext, useEffect, useState } from "react";
 import SearchInput from "../components/SearchInput";
 import Styles from "./EntryPage.module.css";
 import { Link } from "react-router-dom";
@@ -21,6 +21,30 @@ const EntryPage: FC = () => {
   const debouncedSearchTerm = useDebounce(searchCtx.searchedInput, 1000);
   const [totalNumberOfPages, setTotalNumberOfPages] = useState<number>(0);
   const [fetchedMovies, setFetchedMovies] = useState<MovieDetail[]>([]);
+  const [currentScrollPosition, setCurrentScrollPosition] = useState<number>(0);
+
+  const listenForScroll = () => {
+    setCurrentScrollPosition(window.scrollY);
+    scrollCtx.changeScrollPositionHandler("entryPage", window.scrollY);
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", listenForScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", listenForScroll);
+    };
+  }, [currentScrollPosition]);
+
+  useEffect(() => {
+    const timeout: NodeJS.Timeout = setTimeout(() => {
+      window.scrollTo({
+        top: scrollCtx.scrollPositionOfPage.entryPage,
+        behavior: "auto",
+      });
+    }, 1000);
+    return () => clearTimeout(timeout);
+  }, []);
 
   const {
     data,
@@ -41,9 +65,6 @@ const EntryPage: FC = () => {
   );
 
   async function handleMoviesState(pageNumber: number): Promise<void> {
-    // scrollCtx.changeScrollPositionHandler("entryPage", 200);
-    // console.log(scrollCtx);
-
     const movies: { movies: MovieDetail[]; totalResults: number } =
       await fetchMoviesBySearch(debouncedSearchTerm, pageNumber);
     setTotalNumberOfPages(Math.floor(movies.totalResults / 10));
@@ -65,7 +86,7 @@ const EntryPage: FC = () => {
       ) : null}
 
       <Link className={Styles.favouritePageLink} to="favourites">
-        My Favourites
+        My Favourites {currentScrollPosition}
       </Link>
       <header className={Styles.header}>
         <SearchInput></SearchInput>
