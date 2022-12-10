@@ -18,6 +18,10 @@ const MovieDetailPage: FC = () => {
   const navigate = useNavigate();
   const movie: MovieDetail = location.state;
 
+  useEffect(() => {
+    favouriteMoviesCtx.saveMoviesToStorage();
+  }, [favouriteMoviesCtx.favouriteMovies]);
+
   const navigateBack = (): void => {
     navigate(-1);
   };

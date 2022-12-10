@@ -1,4 +1,4 @@
-import { FC, useContext } from "react";
+import { FC, useContext, useEffect } from "react";
 
 import { Link } from "react-router-dom";
 import MovieDetailCard from "../components/MovieDetailCard";
@@ -8,6 +8,11 @@ import Styles from "./FavouriteMovies.module.css";
 
 const FavouriteMovies: FC = () => {
   const favouriteMoviesCtx = useContext(FavouriteMoviesContext);
+
+  useEffect(() => {
+    favouriteMoviesCtx.saveMoviesToStorage();
+  }, [favouriteMoviesCtx.favouriteMovies]);
+
   return (
     <>
       <header className={Styles.header}>
