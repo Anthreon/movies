@@ -8,7 +8,7 @@ import BackDropSpinner from "../components/BackDropSpinner";
 import StarIcon from "../components/StarIcon";
 import { FavouriteMoviesContext } from "../store/favourite-movies-context";
 import { DetailsAboutMovie, MovieDetail } from "../types/interfaces";
-import { JsxElement } from "typescript";
+import ApiError from "../components/ApiError";
 
 const MovieDetailPage: FC = () => {
   const favouriteMoviesCtx = useContext(FavouriteMoviesContext);
@@ -110,7 +110,7 @@ const MovieDetailPage: FC = () => {
     </>
   );
 
-  const pageWithError: JSX.Element = <div>ERORRRRR</div>;
+  const pageWithError: JSX.Element = <ApiError></ApiError>;
 
   return <>{pageInError ? pageWithError : pageWithoutError}</>;
 };

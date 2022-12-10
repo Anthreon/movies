@@ -1,0 +1,13 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgb(242, 234, 234);
+  background-color: black;
+  height: 100vh;
+  text-align: center;
+}
+
+.textWrapper > * {
+  padding: 24px;
+}
