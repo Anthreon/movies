@@ -3,7 +3,6 @@ import SearchInput from "../components/SearchInput";
 import Styles from "./EntryPage.module.css";
 import { Link } from "react-router-dom";
 import { useQuery } from "react-query";
-import axios from "axios";
 import { SearchContext } from "../store/search-context";
 import useDebounce from "../customHooks/useDebounce";
 import MovieDetailCard from "../components/MovieDetailCard";
@@ -12,15 +11,21 @@ import EmptySearch from "../components/EmptySearch";
 import BackDropSpinner from "../components/BackDropSpinner";
 import NoResultsFound from "../components/NoResultsFound";
 import { MovieDetail } from "../types/interfaces";
-import { OMBD_API_URL } from "../util/constants";
+import { fetchMoviesBySearch } from "../util/http";
 
 const EntryPage: FC = () => {
   const searchCtx = useContext(SearchContext);
   const validString: boolean = searchCtx.searchedInput.length > 2;
-  const debouncedSearchTerm = useDebounce(searchCtx.searchedInput, 500);
+  const debouncedSearchTerm = useDebounce(searchCtx.searchedInput, 1000);
   const [totalNumberOfPages, setTotalNumberOfPages] = useState<number>(0);
   const [fetchedMovies, setFetchedMovies] = useState<MovieDetail[]>([]);
-  const [fetchingResults, setFetchingResults] = useState<boolean>(false);
+
+  const handleMoviesFetching = async (): Promise<void> => {
+    const fetchedMovies: { movies: MovieDetail[]; totalResults: number } =
+      await fetchMoviesBySearch(debouncedSearchTerm, searchCtx.pagination);
+    setTotalNumberOfPages(Math.floor(fetchedMovies.totalResults / 10));
+    setFetchedMovies(fetchedMovies.movies);
+  };
 
   const {
     data,
@@ -32,53 +37,21 @@ const EntryPage: FC = () => {
     isLoading: boolean;
     isError: boolean;
     status: string;
-  } = useQuery(
-    ["movies", debouncedSearchTerm],
-    fetchMovies.bind(
-      fetchMovies,
-      `&s=${debouncedSearchTerm}`,
-      searchCtx.pagination
-    ),
-    {
-      enabled: validString,
-    }
-  );
-
-  async function fetchMovies(
-    searchMovieInput: string,
-    pageNumber: number
-  ): Promise<MovieDetail[]> {
-    setFetchingResults(true);
-    const { data } = await axios.get(
-      `${OMBD_API_URL}&s=${debouncedSearchTerm}&page=${pageNumber}`
-    );
-    setTotalNumberOfPages(Math.floor(data.totalResults / 10));
-    const mappedMovies: MovieDetail[] = data.Search.map((movie: any) => {
-      return {
-        image: movie.Poster,
-        title: movie.Title,
-        type: movie.Type,
-        year: movie.Year,
-        id: movie.imdbID,
-      };
-    });
-
-    setFetchedMovies(mappedMovies);
-    setFetchingResults(false);
-    return mappedMovies;
-  }
+  } = useQuery(["movies", debouncedSearchTerm], handleMoviesFetching, {
+    enabled: validString,
+  });
 
   const handlePageChange = async (
     event: React.ChangeEvent<unknown>,
     value: number
   ) => {
     searchCtx.changePaginationHandler(value);
-    await fetchMovies(searchCtx.searchedInput, value);
+    await handleMoviesFetching();
   };
 
   return (
     <div>
-      {fetchingResults && status !== "error" ? (
+      {isLoading && status !== "error" ? (
         <BackDropSpinner></BackDropSpinner>
       ) : null}
 
