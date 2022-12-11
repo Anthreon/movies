@@ -9,6 +9,7 @@ import StarIcon from "../components/StarIcon";
 import { FavouriteMoviesContext } from "../store/favourite-movies-context";
 import { DetailsAboutMovie, MovieDetail } from "../types/interfaces";
 import ApiError from "../components/ApiError";
+import { motion } from "framer-motion";
 
 const MovieDetailPage: FC = () => {
   const favouriteMoviesCtx = useContext(FavouriteMoviesContext);
@@ -57,56 +58,66 @@ const MovieDetailPage: FC = () => {
 
   const pageWithoutError: JSX.Element = (
     <>
-      {loading && <BackDropSpinner></BackDropSpinner>}
-      <div className={Styles.pageContainer}>
-        <Button
-          className={Styles.backButton}
-          onClick={navigateBack}
-          variant="contained"
-          disableElevation
-        >
-          Back
-        </Button>
-        <main>
-          <div className={Styles.container}>
-            <div>
-              <section className={Styles.imgWrapper}>
-                <img
-                  className={Styles.img}
-                  src={
-                    movieData?.poster !== "N/A"
-                      ? movieData?.poster
-                      : MoviePlaceholder
-                  }
-                  alt="Movie image"
-                />
-                <div>
-                  <aside className={Styles.movieDetails}>
-                    <ul className={Styles.movieDataList}>
-                      <div>
-                        <li>Title: {movieData?.title}</li>
-                        <div onClick={addMovie} className={Styles.starWrapper}>
-                          <StarIcon selected={isMovieFavourite}></StarIcon>
+      <motion.div
+        initial={{ opacity: 0, scale: 1 }}
+        exit={{ opacity: 0, scale: 1 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1 }}
+      >
+        {loading && <BackDropSpinner></BackDropSpinner>}
+        <div className={Styles.pageContainer}>
+          <Button
+            className={Styles.backButton}
+            onClick={navigateBack}
+            variant="contained"
+            disableElevation
+          >
+            Back
+          </Button>
+          <main>
+            <div className={Styles.container}>
+              <div>
+                <section className={Styles.imgWrapper}>
+                  <img
+                    className={Styles.img}
+                    src={
+                      movieData?.poster !== "N/A"
+                        ? movieData?.poster
+                        : MoviePlaceholder
+                    }
+                    alt="Movie image"
+                  />
+                  <div>
+                    <aside className={Styles.movieDetails}>
+                      <ul className={Styles.movieDataList}>
+                        <div>
+                          <li>Title: {movieData?.title}</li>
+                          <div
+                            onClick={addMovie}
+                            className={Styles.starWrapper}
+                          >
+                            <StarIcon selected={isMovieFavourite}></StarIcon>
+                          </div>
                         </div>
-                      </div>
 
-                      <li>Actors: {movieData?.actors}</li>
-                      <li>Awards: {movieData?.awards}</li>
-                      <li>Rating: {movieData?.imdbrating}</li>
-                      <li>Director: {movieData?.director}</li>
-                      <li>Genre: {movieData?.genre}</li>
-                      <li>Language: {movieData?.language}</li>
-                      <li>Year of creation: {movieData?.year}</li>
-                      <li>Writers: {movieData?.writer}</li>
-                      <li>Story of film: {movieData?.plot}</li>
-                    </ul>
-                  </aside>
-                </div>
-              </section>
+                        <li>Actors: {movieData?.actors}</li>
+                        <li>Awards: {movieData?.awards}</li>
+                        <li>Rating: {movieData?.imdbrating}</li>
+                        <li>Director: {movieData?.director}</li>
+                        <li>Genre: {movieData?.genre}</li>
+                        <li>Language: {movieData?.language}</li>
+                        <li>Year of creation: {movieData?.year}</li>
+                        <li>Writers: {movieData?.writer}</li>
+                        <li>Story of film: {movieData?.plot}</li>
+                      </ul>
+                    </aside>
+                  </div>
+                </section>
+              </div>
             </div>
-          </div>
-        </main>
-      </div>
+          </main>
+        </div>
+      </motion.div>
     </>
   );
 
