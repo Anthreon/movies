@@ -25,16 +25,15 @@
 
 .favouritePageLink {
   position: absolute;
-  top: 15px;
-  right: 20px;
+  top: 14px;
+  right: 24px;
   display: inline-block;
-  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
   font-size: 22px;
   font-weight: bold;
-  color: black;
+  color: whitesmoke;
   text-decoration: none;
 }
 
 .favouritePageLink:hover {
-  opacity: 0.7;
+  opacity: 0.8;
 }
