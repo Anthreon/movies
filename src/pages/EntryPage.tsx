@@ -33,8 +33,7 @@ const theme: Theme = createTheme({
       styleOverrides: {
         ul: {
           "& .Mui-selected": {
-            color: "white!important",
-            backgroundColor: "rgb(36, 35, 33)",
+            backgroundColor: "rgb(170, 160, 157)",
             fontWeight: "bold",
           },
           "& .Mui-selected:hover": {
@@ -162,7 +161,7 @@ const EntryPage: FC = () => {
           </div>
 
           <motion.main
-            key={debouncedSearchTerm}
+            key={totalNumberOfPages}
             initial={{ opacity: 0, scale: 1 }}
             exit={{ opacity: 0, scale: 1 }}
             animate={{ opacity: 1, scale: 1 }}
