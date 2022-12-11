@@ -6,15 +6,47 @@ import { useQuery } from "react-query";
 import { SearchContext } from "../store/search-context";
 import useDebounce from "../customHooks/useDebounce";
 import MovieDetailCard from "../components/MovieDetailCard";
-import { Pagination } from "@mui/material";
+import { createTheme, Pagination, Theme } from "@mui/material";
 import EmptySearch from "../components/EmptySearch";
 import BackDropSpinner from "../components/BackDropSpinner";
 import NoResultsFound from "../components/NoResultsFound";
 import { MovieDetail } from "../types/interfaces";
 import { fetchMoviesBySearch } from "../util/http";
 import { ScrollContext } from "../store/scroll-history.context";
+import { ThemeProvider } from "@emotion/react";
+import { fontWeight } from "@mui/system";
 
 const EntryPage: FC = () => {
+  const theme: Theme = createTheme({
+    components: {
+      MuiPaginationItem: {
+        styleOverrides: {
+          root: {
+            fontSize: "16px",
+            fontFamily: "Georgia",
+            ":hover": {
+              backgroundColor: "rgb(170, 160, 157)",
+            },
+          },
+        },
+      },
+      MuiPagination: {
+        styleOverrides: {
+          ul: {
+            "& .Mui-selected": {
+              color: "#fff !important",
+              backgroundColor: "rgb(36, 35, 33)",
+              fontWeight: "bold",
+            },
+            "& .Mui-selected:hover": {
+              backgroundColor: "rgb(36, 35, 33)",
+            },
+          },
+        },
+      },
+    },
+  });
+
   const searchCtx = useContext(SearchContext);
   const scrollCtx = useContext(ScrollContext);
   const validString: boolean = searchCtx.searchedInput.length > 2;
@@ -119,12 +151,13 @@ const EntryPage: FC = () => {
       {validString && status !== "error" ? (
         <div>
           <div className={Styles.paginationContainer}>
-            <Pagination
-              page={searchCtx.pagination}
-              onChange={handlePageChange}
-              count={totalNumberOfPages}
-              color="secondary"
-            />
+            <ThemeProvider theme={theme}>
+              <Pagination
+                page={searchCtx.pagination}
+                onChange={handlePageChange}
+                count={totalNumberOfPages}
+              />
+            </ThemeProvider>
           </div>
 
           <main className={Styles.moviesContainer}>

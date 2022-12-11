@@ -17,10 +17,15 @@
 }
 
 .paginationContainer {
-  background-color: rgb(230, 157, 133);
+  background-color: rgb(245, 241, 241);
   justify-content: center;
   display: flex;
   padding: 8px 0;
+}
+
+.pagination {
+  font-size: 24px !important;
+  font-weight: bolder;
 }
 
 .favouritePageLink {
@@ -37,4 +42,8 @@
 
 .favouritePageLink:hover {
   opacity: 0.8;
+}
+
+.MuiPaginationItem-root.Mui-selected {
+  background-color: red !important;
 }
