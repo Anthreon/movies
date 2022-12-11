@@ -119,7 +119,7 @@ const EntryPage: FC = () => {
   };
 
   const errorPage: JSX.Element = (
-    <div>
+    <motion.div exit={{ opacity: "0%", transition: { duration: 2 } }}>
       {isLoading && status !== "error" ? (
         <BackDropSpinner></BackDropSpinner>
       ) : null}
@@ -131,8 +131,14 @@ const EntryPage: FC = () => {
         <SearchInput></SearchInput>
       </header>
 
-      <NoResultsFound></NoResultsFound>
-    </div>
+      <motion.div
+        initial={{ opacity: "0%" }}
+        animate={{ opacity: "100%", transition: { duration: 2 } }}
+        exit={{ opacity: "100%", transition: { duration: 2 } }}
+      >
+        <NoResultsFound></NoResultsFound>
+      </motion.div>
+    </motion.div>
   );
 
   const validPage: JSX.Element = (
