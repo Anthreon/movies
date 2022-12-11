@@ -19,7 +19,7 @@ const MovieDetailCard: FC<MovieDetail> = (props: MovieDetail) => {
     event.preventDefault();
     setRotate(true);
     setTimeout(() => {
-      favouriteMoviesCtx.removeFavouriteMovie.call(this, props.id);
+      favouriteMoviesCtx.removeFavouriteMovie(props.id);
       setRotate(false);
     }, 500);
   };
