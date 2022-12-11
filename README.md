@@ -5,6 +5,32 @@ Find your favourite movie and add it to your own movie library.
 This project was created with React framework
 Check package.json for used packages
 
+Project consists of three main pages: Entry page, Favourite movies page and Movie detail page.
+On Entry page you can search for your favourite movie and click on any movie card to open Movie detail page for
+specific movie.
+On Movie detail page its up to you if you add movie to your favourite movies with star icon or remove it from favourite movies.
+
+From Entry page you can visit favourite movies with link in right top corner.
+
+Application is divided into several folders:
+
+In assets you find used images.
+
+Components folder consists all used components accross app.
+
+In custom hooks folder there is useDebounce hook for reducing number API calls wen searching for movie
+
+In routing folder you will find MainRoutes which is whole routing for application
+
+There are three context files in store folder. favourite movies context is used for handling logic of adding and removing favourite movies
+as well as fetching them from local storage.
+Scroll history context is used for keeping scroll history for currently existing pages.
+Search context holds search input which user typed into input field.
+
+Types folder contains shared interfaces which are used across app.
+
+Util folder contains constants, helper functions which could be used anywhere and http file containing fetching logic of movies.
+
 ## Available Scripts
 
 In the project directory, you can run:
