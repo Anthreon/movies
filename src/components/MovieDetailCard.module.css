@@ -27,10 +27,21 @@
 }
 
 .container {
-  position: absolute;
   width: -webkit-fill-available;
   bottom: 5%;
   padding: 0 8px;
+}
+
+.cardTextContainer {
+  display: flex;
+  flex: 1;
+
+  vertical-align: middle;
+  align-items: center;
+}
+
+.container > * {
+  margin-top: 6px;
 }
 
 .cardTitle {
@@ -52,4 +63,8 @@
   top: 10px;
   z-index: 25000;
   width: 40px;
+}
+
+.link {
+  text-decoration: none;
 }

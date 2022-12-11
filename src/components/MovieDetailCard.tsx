@@ -31,6 +31,7 @@ const MovieDetailCard: FC<MovieDetail> = (props: MovieDetail) => {
       variants={variants}
     >
       <Link
+        className={Styles.link}
         to={{
           pathname: `movieDetail/${props.id}`,
         }}
