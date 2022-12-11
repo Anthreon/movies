@@ -3,9 +3,20 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: rgb(183, 238, 238);
+  background: rgb(88, 88, 74);
+  border-top: inset;
+  background: linear-gradient(
+    90deg,
+    rgba(88, 88, 74, 1) 0%,
+    rgba(140, 140, 133, 1) 0%,
+    rgba(112, 112, 104, 1) 21%,
+    rgba(92, 92, 82, 1) 53%,
+    rgba(56, 56, 44, 1) 82%
+  );
   width: 100%;
   height: 90vh;
+  letter-spacing: 0.5mm;
+  color: whitesmoke;
 }
 
 .img {
@@ -14,5 +25,6 @@
 }
 
 .text {
-  margin-top: 20px;
+  text-align: center;
+  margin-top: 40px;
 }
