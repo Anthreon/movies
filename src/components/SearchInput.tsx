@@ -13,6 +13,7 @@ const SearchInput: FC = () => {
   return (
     <div>
       <input
+        maxLength={30}
         value={searchCtx.searchedInput}
         onChange={inputHandler}
         className={Styles.searchInput}
