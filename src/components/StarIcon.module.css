@@ -5,7 +5,4 @@
 
 .starWrapper:hover {
   cursor: pointer;
-  background-color: rebeccapurple;
-  border: solid;
-  border-radius: 50%;
 }
