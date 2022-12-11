@@ -1,8 +1,10 @@
 .starWrapper {
   z-index: 25000;
   width: 40px;
+  transition: all 0.2s ease-in-out;
 }
 
 .starWrapper:hover {
+  transform: scale(1.5);
   cursor: pointer;
 }
