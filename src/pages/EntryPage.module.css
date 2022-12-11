@@ -14,6 +14,7 @@
   gap: 64px;
   justify-items: center;
   background-color: rgb(193, 203, 84);
+  min-height: 100vh;
 }
 
 .paginationContainer {

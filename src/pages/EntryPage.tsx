@@ -14,39 +14,40 @@ import { MovieDetail } from "../types/interfaces";
 import { fetchMoviesBySearch } from "../util/http";
 import { ScrollContext } from "../store/scroll-history.context";
 import { ThemeProvider } from "@emotion/react";
-import { fontWeight } from "@mui/system";
+import { motion } from "framer-motion";
 
-const EntryPage: FC = () => {
-  const theme: Theme = createTheme({
-    components: {
-      MuiPaginationItem: {
-        styleOverrides: {
-          root: {
-            fontSize: "16px",
-            fontFamily: "Georgia",
-            ":hover": {
-              backgroundColor: "rgb(170, 160, 157)",
-            },
-          },
-        },
-      },
-      MuiPagination: {
-        styleOverrides: {
-          ul: {
-            "& .Mui-selected": {
-              color: "#fff !important",
-              backgroundColor: "rgb(36, 35, 33)",
-              fontWeight: "bold",
-            },
-            "& .Mui-selected:hover": {
-              backgroundColor: "rgb(36, 35, 33)",
-            },
+const theme: Theme = createTheme({
+  components: {
+    MuiPaginationItem: {
+      styleOverrides: {
+        root: {
+          fontSize: "16px",
+          fontFamily: "Georgia",
+          ":hover": {
+            backgroundColor: "rgb(170, 160, 157)",
           },
         },
       },
     },
-  });
+    MuiPagination: {
+      styleOverrides: {
+        ul: {
+          "& .Mui-selected": {
+            color: "white!important",
+            backgroundColor: "rgb(36, 35, 33)",
+            fontWeight: "bold",
+          },
+          "& .Mui-selected:hover": {
+            color: "white !important",
+            backgroundColor: "rgb(36, 35, 33)",
+          },
+        },
+      },
+    },
+  },
+});
 
+const EntryPage: FC = () => {
   const searchCtx = useContext(SearchContext);
   const scrollCtx = useContext(ScrollContext);
   const validString: boolean = searchCtx.searchedInput.length > 2;
@@ -160,7 +161,14 @@ const EntryPage: FC = () => {
             </ThemeProvider>
           </div>
 
-          <main className={Styles.moviesContainer}>
+          <motion.main
+            key={debouncedSearchTerm}
+            initial={{ opacity: 0, scale: 1 }}
+            exit={{ opacity: 0, scale: 1 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1 }}
+            className={Styles.moviesContainer}
+          >
             {fetchedMovies?.map((movie: MovieDetail, index: number) => {
               return (
                 <MovieDetailCard
@@ -173,7 +181,7 @@ const EntryPage: FC = () => {
                 />
               );
             })}
-          </main>
+          </motion.main>
         </div>
       ) : status !== "error" || !validString ? (
         <EmptySearch></EmptySearch>
