@@ -1,6 +1,9 @@
-# Getting Started with Create React App
+# React movie library application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Find your favourite movie and add it to your own movie library.
+
+This project was created with React framework
+Check package.json for used packages
 
 ## Available Scripts
 

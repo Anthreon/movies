@@ -150,7 +150,7 @@ const EntryPage: FC = () => {
     </div>
   );
 
-  return <>{pageInError ? errorPage : validPage}</>;
+  return <>{pageInError && validString ? errorPage : validPage}</>;
 };
 
 export default EntryPage;
