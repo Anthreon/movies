@@ -13,7 +13,7 @@
   grid-template-rows: auto;
   gap: 64px;
   justify-items: center;
-  background-color: darkkhaki;
+  background-color: rgb(193, 203, 84);
 }
 
 .paginationContainer {
