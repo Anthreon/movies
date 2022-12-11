@@ -90,7 +90,7 @@ const MovieDetailPage: FC = () => {
                   <div>
                     <aside className={Styles.movieDetails}>
                       <ul className={Styles.movieDataList}>
-                        <div>
+                        <div className={Styles.titleWrapper}>
                           <li>Title: {movieData?.title}</li>
                           <div
                             onClick={addMovie}
